@@ -1,4 +1,4 @@
-Great, let's draft the `README.md` for your project:
+
 
 ---
 
