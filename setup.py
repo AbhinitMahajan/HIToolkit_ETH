@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='HI_package',
-    version='0.0.1',
+    version='0.0.2',
     description='A toolkit which offers the user to implement different preprocessing techniques on hyperspectral images of flowing waste water. It also helps the user to implement and fine tune various ML models.',
     author='Abhinit Mahajan',
     author_email='abhinit81@gmail.com',
