@@ -17,6 +17,7 @@ pip install git+https://github.com/AbhinitMahajan/HIToolkit_ETH.git
 
 #### Loading Data
 Ensure you provide the correct path and timestamp. You will recieve a dict object of all dataframes  
+The dataframes stored inside are df_sulphur, df_turb, df_nh, df_po4, df_doc, df_nsol
 
 ```python
 from HI_package.your_sql_reader_module import SQLDataReader
@@ -36,7 +37,7 @@ dataframes = SQLDataReader.preprocessing(lab_data, mvx_data)
 ```
 
 #### Modelling Data
-
+Just run the command main_script.main to start the modelling process as shown 
 ```python
 from HI_package import your_sql_reader_module 
 from HI_package import imports_module 
