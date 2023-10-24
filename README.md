@@ -55,4 +55,3 @@ A special shoutout to PhD student @ETH, Pierre Lechevalier, for his invaluable c
 
 ---
 
-Once you have the above `README.md` content, you can save it to your project root directory. Remember, you can always adjust, expand, or add more sections to your README as your project grows or changes.
