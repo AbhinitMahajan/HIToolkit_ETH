@@ -1,6 +1,9 @@
 # Import custom modules
-from imports_module import *  # imports are in imports_module.py
-from functions_module import *  # required functions are in functions_module.py
+from HI_package.imports_module import *
+from HI_package.functions_module import *
+
+#from imports_module import *  # imports are in imports_module.py
+#from functions_module import *  # required functions are in functions_module.py
 
 def main(dataframes):
 
