@@ -15,8 +15,7 @@ setup(
         'scikit-learn',
         'matplotlib',
         'xgboost',
-        'seaborn',
-        'sqlite3'
+        'seaborn'
     ],
     python_requires='>=3.6, <4',
     keywords='Hyperspectral Images, Modelling waste water, Machine Learning',
