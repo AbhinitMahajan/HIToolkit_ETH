@@ -19,6 +19,7 @@ pip install git+https://github.com/AbhinitMahajan/HIToolkit_ETH.git
 Ensure you provide the correct path and timestamp. You will recieve a dict object of all dataframes  
 
 ```python
+from HI_package.your_sql_reader_module import SQLDataReader
 ### Load data
 # Please make sure you put in the path and timestamp correctly
 mvx_data = SQLDataReader.load_data('230817_sql/flume_mvx_spectra.sqlite')
@@ -30,19 +31,17 @@ scan_data = SQLDataReader.load_data('230817_sql/flume_scan_spectra.sqlite', '202
 ### Producing dataframes
 # Preprocessing function inside class SQLDataReader
 # Produce a dictionary of dataframes which you can access 
-# SQLDataReader.preprocessing takes 2 inputs: measurements and spectra 
+# SQLDataReader.preprocessing takes 2 inputs: measurements(lab_data or turbimax_data) and spectra(mvx_data or scan_data) 
 dataframes = SQLDataReader.preprocessing(lab_data, mvx_data)
 ```
 
 #### Modelling Data
 
 ```python
-import sys
-sys.path.append("C:\data_stand_17-08-2023\Scripts")
-from your_sql_reader_module import SQLDataReader
-from imports_module import *
-from functions_module import *
-import main_script
+from HI_package import your_sql_reader_module 
+from HI_package import imports_module 
+from HI_package import functions_module 
+from HI_package import main_script
 
 main_script.main(dataframes)
 ```
