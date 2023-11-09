@@ -24,15 +24,16 @@ from HI_package.your_sql_reader_module import SQLDataReader
 ### Load data
 # Please make sure you put in the path and timestamp correctly
 mvx_data = SQLDataReader.load_data('230817_sql/flume_mvx_spectra.sqlite')
-lab_data = SQLDataReader.load_data('230817_sql/lab_data.sqlite')
-lab_data.drop(columns=['toc', 'ntot', 'tss'], inplace=True)  # Example of inline data processing
-turbimax_data = SQLDataReader.load_data('230817_sql/flume_turbimax_data.sqlite', '2023-05-08T09:00:00', '2023-09-01T00:00:00')
 scan_data = SQLDataReader.load_data('230817_sql/flume_scan_spectra.sqlite', '2023-05-08T09:00:00', '2023-09-01T00:00:00')
+lab_data = SQLDataReader.load_data('230817_sql/lab_data.sqlite')
+lab_data.drop(columns=['toc', 'ntot', 'tss'], inplace=True)  
+turbimax_data = SQLDataReader.load_data('230817_sql/flume_turbimax_data.sqlite', '2023-05-08T09:00:00', '2023-09-01T00:00:00')
+
 
 ### Producing dataframes
 # Preprocessing function inside class SQLDataReader
 # Produce a dictionary of dataframes which you can access 
-# SQLDataReader.preprocessing takes 2 inputs: measurements(lab_data or turbimax_data) and spectra(mvx_data or scan_data) 
+# SQLDataReader.preprocessing takes 2 inputs: measurements(lab_data or turbimax_data) and spectra(mvx_data(reflectance) or scan_data(absorbance)) 
 dataframes = SQLDataReader.preprocessing(lab_data, mvx_data)
 ```
 
