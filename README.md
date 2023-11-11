@@ -35,7 +35,7 @@ turbimax_data = SQLDataReader.load_data('230817_sql/flume_turbimax_data.sqlite',
 # Preprocessing function inside class SQLDataReader
 # Produce a dictionary of dataframes which you can access 
 # SQLDataReader.preprocesing takes 2 inputs: measurements(lab_data or turbimax_data) and spectra(mvx_data(reflectance) or scan_data(absorbance)) 
-dataframes = SQLDataReader.preprocessing(lab_data, mvx_data)
+dataframes = SQLDataReader.preprocesing(lab_data, mvx_data)
 ```
 
 #### Modelling Data
