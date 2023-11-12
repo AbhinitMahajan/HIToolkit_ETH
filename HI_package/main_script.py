@@ -113,7 +113,7 @@ def main(dataframes):
             return
 
 
-    kfold = KFold(n_splits=3, shuffle=True, random_state=42)
+    kfold = KFold(n_splits=5, shuffle=True, random_state=42)
     values = []
 
     if model_choice in ['1', '2', '5']:
@@ -126,7 +126,7 @@ def main(dataframes):
               X_train, X_test = X_scaled[train_index], X_scaled[test_index]
               y_train, y_test = y.iloc[train_index], y.iloc[test_index]
               best_model = tune_parameters_func(X_train, y_train)
-              rfecv = RFECV(estimator=best_model, step=1, min_features_to_select=len(best_model.n_iter_),scoring ="neg_mean_squared_error", cv=KFold(n_splits=3, shuffle=True, random_state=20))
+              rfecv = RFECV(estimator=best_model, step=1, min_features_to_select=len(best_model.n_iter_),scoring ="neg_mean_squared_error", cv=KFold(n_splits=5, shuffle=True, random_state=20))
               rfecv.fit(X_train, y_train)
               X_train_selected = X_train[:, rfecv.support_]
               X_test_selected = X_test[:, rfecv.support_]
@@ -142,7 +142,7 @@ def main(dataframes):
               X_train, X_test = X_scaled[train_index], X_scaled[test_index]
               y_train, y_test = y.iloc[train_index], y.iloc[test_index]
               best_model = tune_parameters_func(X_train, y_train)
-              rfecv = RFECV(estimator=best_model, step=1,scoring ="neg_mean_squared_error", cv=KFold(n_splits=3,shuffle=True, random_state=20))
+              rfecv = RFECV(estimator=best_model, step=1,scoring ="neg_mean_squared_error", cv=KFold(n_splits=5,shuffle=True, random_state=20))
               rfecv.fit(X_train, y_train)
               X_train_selected = X_train[:, rfecv.support_]
               X_test_selected = X_test[:, rfecv.support_]
@@ -181,7 +181,7 @@ def main(dataframes):
                 best_model = tune_parameters_randomforest(X_train, y_train)
 
             # Feature selection with RFE inside the loop
-            rfe = RFECV(best_model, step=1,scoring = "r2", cv=KFold(3))
+            rfe = RFECV(best_model, step=1,scoring = "r2", cv=KFold(5))
             rfe.fit(X_train, y_train)
             X_train_selected = X_train[:, rfe.support_]
             X_test_selected = X_test[:, rfe.support_]
