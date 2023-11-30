@@ -5,31 +5,10 @@ from HI_package.functions_module import *
 #from imports_module import *  # imports are in imports_module.py
 #from functions_module import *  # required functions are in functions_module.py
 
-def main(dataframes):
-
-    selected_dataframe = input("Choose a dataframe (df_sulphur, df_turb, df_nh, df_po4, df_doc, df_nsol): ")
-
-    if selected_dataframe not in dataframes:
-        print("Invalid dataframe choice. Exiting.")
-        return
-
-    df_selected = dataframes[selected_dataframe]
-
-    # Prompt user for the target column associated with the selected dataframe
-    target_column_dict = {
-        'df_sulphur': 'so4',
-        'df_turb': 'turbidity',
-        'df_nh': 'nh4',
-        'df_po4': 'po4',
-        'df_doc': 'doc',
-        'df_nsol': 'nsol'
-    }
-
-    target_column = target_column_dict[selected_dataframe]
-
-    # Split the merged DataFrame into features (X) and target (y)
-    X = df_selected.drop(target_column, axis=1)
-    y = df_selected[target_column]
+def main(df , target_column):
+    # Split the DataFrame into features (X) and target (y)
+    X = df.drop(target_column, axis=1)
+    y = df[target_column]
 
     # Remove outliers from the feature columns and target values
     outlier_choice = input("Choose outlier removal method (1: IQR, 2: Z-score, 3: Isolation Forest, 4: None): ")
@@ -181,17 +160,17 @@ def main(dataframes):
                 best_model = tune_parameters_randomforest(X_train, y_train)
 
             # Feature selection with RFE inside the loop
-            rfe = RFECV(best_model, step=1,scoring = "r2", cv=KFold(5))
-            rfe.fit(X_train, y_train)
-            X_train_selected = X_train[:, rfe.support_]
-            X_test_selected = X_test[:, rfe.support_]
+            rfecv = RFECV(best_model, step=1,scoring = "r2", cv=KFold(5))
+            rfecv.fit(X_train, y_train)
+            X_train_selected = X_train[:, rfecv.support_]
+            X_test_selected = X_test[:, rfecv.support_]
 
             # Handle tuning based on the model choice
             #if model_choice == '3':
             #    best_model = tune_parameters_xgboost(X_train_selected, y_train)
             #else:
             #    best_model = tune_parameters_randomforest(X_train_selected, y_train)
-            rmse, r2 = evaluate_model(rfe.estimator_, X_test_selected, y_test)  # Notice we're passing X_test_selected here
+            rmse, r2 = evaluate_model(rfecv.estimator_, X_test_selected, y_test)  # Notice we're passing X_test_selected here
             rmse_folds.append(rmse)
             r2_folds.append(r2)
             print("Mean Squared Error (RMSE):", rmse)
@@ -199,7 +178,7 @@ def main(dataframes):
 
         avg_rmse = np.mean(rmse_folds)
         avg_r2 = np.mean(r2_folds)
-        selected_features = get_selected_feature_names(X, rfe.support_)
+        selected_features = get_selected_feature_names(X, rfecv.support_)
         print("Selected Features:", ', '.join(selected_features))
         print("Average Root Mean Squared Error (RMSE):", avg_rmse)
         print("Average R-squared value:", avg_r2)
