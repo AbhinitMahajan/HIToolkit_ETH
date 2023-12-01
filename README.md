@@ -17,8 +17,8 @@ pip install git+https://github.com/AbhinitMahajan/HIToolkit_ETH.git
 ## Usage
 
 #### Loading Data
-Ensure you provide the correct path and timestamp. You will recieve a dict object of all dataframes  
-The dataframes stored inside are df_sulphur, df_turb, df_nh, df_po4, df_doc, df_nsol
+Ensure you provide the correct path and timestamp to load the data 
+
 
 ```python
 from HI_package.your_sql_reader_module import SQLDataReader
@@ -31,22 +31,25 @@ lab_data.drop(columns=['toc', 'ntot', 'tss'], inplace=True)
 turbimax_data = SQLDataReader.load_data('230817_sql/flume_turbimax_data.sqlite', '2023-05-08T09:00:00', '2023-09-01T00:00:00')
 
 
-### Producing dataframes
+### Producing dataframes  OPTIONAL ONLY
 # Preprocessing function inside class SQLDataReader
+# The following code can be used to retrive dataframes: df_sulphur, df_turb, df_nh, df_po4, df_doc, df_nsol
 # Produce a dictionary of dataframes which you can access 
-# SQLDataReader.preprocesing takes 2 inputs: measurements(lab_data or turbimax_data) and spectra(mvx_data(reflectance) or scan_data(absorbance)) 
+# SQLDataReader.preprocesing takes 2 inputs: measurements(lab_data) and spectra(mvx_data(reflectance) or scan_data(absorbance)) 
 dataframes = SQLDataReader.preprocesing(lab_data, mvx_data)
 ```
 
 #### Modelling Data
-Just run the command main_script.main to start the modelling process as shown 
+Just run the command main_script.main to start the modeling process as shown 
+- Takes two inputs - dataframe and target_column
+- Example df_sulphur & 'sulphur'
 ```python
 from HI_package import your_sql_reader_module 
 from HI_package import imports_module 
 from HI_package import functions_module 
 from HI_package import main_script
 
-main_script.main(dataframes)
+main_script.main(df, target_column)
 ```
 
 ## License
